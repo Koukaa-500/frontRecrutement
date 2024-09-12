@@ -1,0 +1,64 @@
+<div *ngIf="Offres" class="container-fluid">
+
+    <app-page-title title="Wallets" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+    
+    <!-- end row -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+
+
+                    <h4 class="card-title mb-4">Offres</h4>
+                    <tabset class="nav-tabs nav-tabs-custom">
+                        <tab heading="All" class="mt-4">
+                            <div class="row mb-md-2">
+                                <div class="col-sm-12 col-md-6">
+                                    
+                                </div>
+                                <!-- Search -->
+                        
+                                <!-- End search -->
+                            </div>
+                            <!-- Table -->
+                            <table id="basic-datatable" class="table datatables dt-responsive nowrap">
+                                <thead>
+                                    <tr>
+                                        <th sortable="id" (sort)="onSort($event)">#</th>
+                                        <th sortable="date" (sort)="onSort($event)">Titre</th>
+                                        <th sortable="type" (sort)="onSort($event)">description</th>
+                                        <th sortable="currency" (sort)="onSort($event)">Limite</th>
+                                        <th sortable="amount" (sort)="onSort($event)">Recruteur</th>
+                                        <th>Action</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let table of Offres.content ">
+                                        <td class="text-body fw-bold">{{table.id}} </td>
+                                        <td>{{table.titre}}</td>
+                                        <td>{{table.description}}</td>
+                                        <td>{{table.limite}} </td>
+                                        <td>{{table.recruteur.nom+" " +table.recruteur.prenom}}</td>
+                                        <td>
+                                            <button class="btn btn-danger" (click)="deleteOffre(table.id)">  supprimer</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- End table -->
+                            <div class="row justify-content-md-between align-items-md-center mt-2">
+                           
+                                
+                                <!-- End Pagination -->
+                            </div>
+                        </tab>
+                    
+                    </tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

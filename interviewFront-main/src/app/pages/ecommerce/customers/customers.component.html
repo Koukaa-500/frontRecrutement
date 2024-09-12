@@ -1,0 +1,95 @@
+<div class="container-fluid">
+  <app-page-title title="Jobs" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box me-2 mb-2 d-inline-block">
+                <div class="position-relative">
+                  <input type="text"
+                    class="form-control"
+                    id="searchTableList"
+                    placeholder="Search..."
+                    [(ngModel)]="term"
+                  />
+                  <i class="bx bx-search-alt search-icon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Conditionally show content based on role -->
+          <div *ngIf="isRecruter; else candidateView">
+            <div class="table-responsive">
+              <table class="table align-middle table-nowrap dt-responsive nowrap w-100" id="jobList-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Job Title</th>
+                    <th>Description</th>
+                    <th>Posted By</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let job of jobsData" id="j_{{job.id}}">
+                    
+                    <td>{{job.title}}</td>
+                    <td>{{job.description}}</td>
+                    <td>{{job.nbPoste}}</td>
+                    <td>
+                      <span [ngClass]="{'text-warning': job.status === 'pending', 'text-success': job.status === 'accepted', 'text-danger': job.status === 'rejected'}">
+                        {{job.status | titlecase}}
+                      </span>
+                    </td>
+                    <td>
+                      <div class="d-flex">
+                        <button *ngIf="job.status === 'pending'" class="btn btn-success btn-sm me-2" (click)="updateJobStatus(job.id, 'accepted')">Accept</button>
+                        <button *ngIf="job.status === 'pending'" class="btn btn-danger btn-sm" (click)="updateJobStatus(job.id, 'rejected')">Reject</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <ng-template #candidateView>
+            <div class="table-responsive">
+              <table class="table align-middle table-nowrap dt-responsive nowrap w-100" id="acceptedJobList-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Job Title</th>
+                    <th>Description</th>
+                    <th>Posted By</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let job of jobsData " id="j_{{job.id}}">
+                    
+                    <td *ngIf="job.status  === 'ACCEPTED'">{{job.title}}</td>
+                    <td *ngIf="job.status  === 'ACCEPTED'">{{job.description}}</td>
+                    <td *ngIf="job.status  === 'ACCEPTED'">{{job.postedBy}}</td>
+                    <td>
+                      <span *ngIf="job.status  === 'ACCEPTED'" class="text-success">
+                        {{job.status | titlecase}}
+                      </span>
+                    </td>
+                    <td *ngIf="job.status  === 'ACCEPTED'" class="btn btn-success" (click)="applyJob(job.id)">Apply</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ng-template>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

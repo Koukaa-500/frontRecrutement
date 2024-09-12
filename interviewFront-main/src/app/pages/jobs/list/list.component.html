@@ -1,0 +1,155 @@
+<div class="container-fluid" *ngIf="interviews">
+  <app-page-title title="Jobs List" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body border-bottom">
+          <div class="d-flex align-items-center">
+            <h5 class="mb-0 card-title flex-grow-1">Meetings disponibles</h5>
+            <div class="flex-shrink-0 d-flex gap-1">
+              <a href="javascript:void(0);" class="btn btn-light"><i class="mdi mdi-refresh"></i></a>
+          
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-body">
+
+          <div class="table-responsive">
+            <table class="table align-middle dt-responsive nowrap w-100 table-check" id="job-list">
+              <thead>
+                <tr>
+                  <th scope="col">numéro</th>
+                  <th scope="col">Offre</th>
+                  <th scope="col">Intervenant</th>
+                  <th scope="col">Candidat</th>
+                  <th scope="col">lien</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of interviews.content;let i=index">
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{data.offre.description}}</td>
+                  <td>{{data.responsable}}</td>
+                  <td>{{data.participant.nom+" "+data.participant.prenom}}</td>
+                  <td>{{data.url}}</td>
+                  
+                  <td><span class="badge" [ngClass]="{ 'bg-success': data.status === 'Active', 'bg-info': data.status === 'New', 'bg-danger': data.status === 'Close'}">{{data.status}}</span></td>
+                  <td>
+                    <ul class="list-unstyled hstack gap-1 mb-0">
+                    
+                 
+                      <li data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
+                        <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" (click)="deleteInterview(data.id)"><i class="mdi mdi-delete-outline"></i></a>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="row justify-content-between align-items-center">
+            <div class="col-auto me-auto">
+              <p class="text-muted mb-0">voir <b>{{service.startIndex}}</b> to <b>{{service.endIndex}}</b> of <b>{{service.totalRecords}}</b> entries</p>
+            </div>
+            <div class="col-auto">
+              <div class="text-md-right float-md-end pagination-rounded">
+                <ul class="pagination pagination-rounded justify-content-end mb-2">
+                  <pagination [totalItems]="(total | async)!" [(ngModel)]="service.page" [itemsPerPage]="service.pageSize" previousText="&lsaquo;" nextText="&rsaquo;"></pagination>
+                </ul>
+              </div>
+            </div>
+            <!--end col-->
+          </div>
+          <!--end row-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View Details Model -->
+<ng-template #ViewContent role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Order Details</h5>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modalRef?.hide()"></button>
+  </div>
+  <div class="modal-body">
+    <p class="mb-2">
+      Product id:
+      <span class="text-primary">#SK2540</span>
+    </p>
+    <p class="mb-4">
+      Billing Name:
+      <span class="text-primary">Neal Matthews</span>
+    </p>
+    <div class="table-responsive">
+      <table class="table table-centered table-nowrap">
+        <thead>
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">
+              <div>
+                <img src="assets/images/product/img-7.png" alt class="avatar-sm" />
+              </div>
+            </th>
+            <td>
+              <div>
+                <h5 class="text-truncate font-size-14">Wireless Headphone (Black)</h5>
+                <p class="text-muted mb-0">$ 225 x 1</p>
+              </div>
+            </td>
+            <td>$ 255</td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <div>
+                <img src="assets/images/product/img-4.png" alt class="avatar-sm" />
+              </div>
+            </th>
+            <td>
+              <div>
+                <h5 class="text-truncate font-size-14">Phone patterned cases</h5>
+                <p class="text-muted mb-0">$ 145 x 1</p>
+              </div>
+            </td>
+            <td>$ 145</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <h6 class="m-0">Sub Total:</h6>
+            </td>
+            <td>$ 400</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <h6 class="m-0">Shipping:</h6>
+            </td>
+            <td>Free</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <h6 class="m-0">Total:</h6>
+            </td>
+            <td>$ 400</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<!-- Order Create Model -->
+
+<!--End Modal -->

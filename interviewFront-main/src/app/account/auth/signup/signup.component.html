@@ -1,0 +1,93 @@
+<div class="account-pages my-5 pt-sm-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6 col-xl-5">
+        <div class="card overflow-hidden">
+          <div class="bg-primary-subtle">
+            <div class="row">
+              <div class="col-7">
+                <div class="text-primary p-4">
+                  <h5 class="text-primary">Inscription</h5>
+                  <p>S'inscrire maintenant.</p>
+                </div>
+              </div>
+              <div class="col-5 align-self-end">
+              </div>
+            </div>
+          </div>
+          <div class="card-body pt-0">
+            <div>
+              <a routerLink="/">
+                <div class="avatar-md profile-user-wid mb-4">
+                  <span class="avatar-title rounded-circle bg-light">
+                    <img src="assets/images/logo.svg" alt="" class="rounded-circle" height="34">
+                  </span>
+                </div>
+              </a>
+            </div>
+            <div class="p-2">
+
+              <form class="needs-validation" name="signupForm" [formGroup]="signupForm" (ngSubmit)="onSubmit()"
+                novalidate>
+
+                <alert type="success" *ngIf="successmsg" [dismissible]="false">Inscription avec succés.
+                </alert>
+
+                <alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</alert>
+
+                <form (submit)="onSubmit()">
+                  <div class="mb-3">
+                    <label for="username-input" class="form-label">Nom</label>
+                    <input type="text" id="username-input" class="form-control" placeholder="nom" name="nom" [(ngModel)]="utilisateur.nom" required />
+                    <div class="invalid-feedback">Veuillez saisir le nom.</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="username-input" class="form-label">Prenom</label>
+                    <input type="text" id="username-input" class="form-control" placeholder="prenom" name="prenom" [(ngModel)]="utilisateur.prenom" required />
+                    <div class="invalid-feedback">Veuillez saisir le Prenom.</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="age-input" class="form-label">Age:</label>
+                    <input type="number" id="age-input" class="form-control" placeholder="Enter age" name="age" [(ngModel)]="utilisateur.age" required />
+                    <div class="invalid-feedback">Veuillez saisir l'age.</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="email-input" class="form-label" >Email</label>
+                    <input type="email" id="email-input" class="form-control" placeholder="Enter email" name="email" [(ngModel)]="utilisateur.email" required />
+                  </div>
+                  <div class="mb-3">
+                    <label for="mdp-input" class="form-label">Mot de passe</label>
+                    <input type="password" id="mdp-input" class="form-control" placeholder="Enter mot de passe" name="mdp" [(ngModel)]="utilisateur.motDePasse" required />
+                  </div>
+                  <div class="mb-3">
+                    <label for="grade-input" class="form-label">Grade</label>
+                    <select class="form-select" id="grade-input" name="grade" [(ngModel)]="utilisateur.role" required>
+                      <option value="admin">Administrateur</option>
+                      <option value="recruteur">Recruteur</option>
+                      <option value="candidat">Candidat</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <button type="submit"  class="btn btn-primary">Inscription</button>
+                  </div>
+                </form>
+
+               
+            
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- end card -->
+
+        <div class="mt-5 text-center">
+          <p>Already have an account ? <a routerLink="/account/login" class="fw-medium text-primary"> Login</a>
+          </p>
+          <p>© {{year}}</p>
+        </div>
+      </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+  </div>
+  <!-- end container -->
+</div>
