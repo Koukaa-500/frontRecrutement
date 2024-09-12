@@ -37,8 +37,12 @@ export class OrdersComponent implements OnInit {
 
   getAllOffres() {
     this.offreservice.getOffres().subscribe(
-      (offres: any[]) => { // Assert the type here
-        this.offres = offres.filter((offer: any) => offer.status === 'PENDING');
+      (offres: any[]) => { 
+        const userId = JSON.parse(localStorage.getItem('user')).id; // Retrieve recruiter ID from localStorage
+  
+        // Filter offers that have the 'PENDING' status and were created by the logged-in recruiter
+        this.offres = offres.filter((offer: any) => offer.status === 'PENDING' && offer.recruteur === userId);
+        
         console.log(this.offres);
       },
       error => {

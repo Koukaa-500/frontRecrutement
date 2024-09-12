@@ -54,7 +54,7 @@ import { FilemanagerComponent } from './filemanager/filemanager.component';
     NgApexchartsModule,
     ReactiveFormsModule,
     DashboardsModule,
-    CryptoModule,
+   
     
     EmailModule,
     InvoicesModule,

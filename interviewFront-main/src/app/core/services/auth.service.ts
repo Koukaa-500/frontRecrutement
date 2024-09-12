@@ -76,7 +76,7 @@ export class AuthenticationService {
   login(email: string, password: string): Observable<any> {
     const loginData = {
       email: email,
-      password: password
+      motDePasse: password
     };
 
     // Set headers to specify content type as JSON

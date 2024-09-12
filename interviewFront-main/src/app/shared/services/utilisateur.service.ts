@@ -1,5 +1,6 @@
   import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,10 @@ findUserByEmail(email){
       return this.http.get(this.url+"/recruteurs/"+encodeURIComponent(email));
 
     }
+}
+
+gitUserByRecruter(id: any): Observable<any> {
+  return this.http.get<any>(`${this.url}candidats/all/${id}`);
 }
 
 }

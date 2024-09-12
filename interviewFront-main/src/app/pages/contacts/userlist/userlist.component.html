@@ -1,7 +1,4 @@
-<div *ngIf="utilisateurs" class="container-fluid">
-
-  <app-page-title title="Users List" [breadcrumbItems]="breadCrumbItems"></app-page-title>
-
+<div class="container-fluid">
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
@@ -10,194 +7,40 @@
             <div class="col-sm-4">
               <div class="search-box me-2 mb-2 d-inline-block">
                 <div class="position-relative">
-                  <input type="text" class="form-control" id="searchTableList" placeholder="Search...">
+                  <input type="text" class="form-control" autocomplete="off" id="searchTableList" placeholder="Search..." >
                   <i class="bx bx-search-alt search-icon"></i>
                 </div>
               </div>
             </div>
-            <div class="col-sm-8">
-              <div class="text-sm-end">
-                <button type="button" data-bs-toggle="modal" (click)="newContactModal.show()" class="btn btn-success btn-rounded waves-effect waves-light addContact-modal mb-2"><i class="mdi mdi-plus me-1"></i> Ajouter membre</button>
-              </div>
-            </div><!-- end col-->
           </div>
-          <!-- end row -->
-          <div class="table-responsive">
-            <table class="table align-middle table-nowrap table-hover dt-responsive nowrap w-100" id="userList-table">
-              <thead class="table-light">
-                <tr>
-                  <th scope="col" style="width: 40px;">#</th>
-                  <th scope="col">Nom</th>
-                  <th scope="col">Prenom</th>
 
-                  <th scope="col">Email</th>
-                  <th scope="col">Grade</th>
-                  <th scope="col" style="width: 200px;">Action</th>
+          <div class="table-responsive mb-0">
+            <table class="table align-middle table-nowrap dt-responsive nowrap w-100 table-check" id="user-list">
+              <thead>
+                <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let data of utilisateurs.content;let i = index;">
+                <tr *ngFor="let user of users; let i = index;" id="u_{{user.id}}">
+                  <td>{{user.firstName}}</td>
+                  <td>{{user.lastName}}</td>
+                  <td>{{user.email}}</td>
                   <td>
-                    <div class="avatar-xs" >
-                      <span class="avatar-title rounded-circle">
-                        {{data.nom.charAt(0)}}
-                      </span>
+                    <div class="d-flex gap-3">
+                      <a href="javascript:void(0);" class="text-success" (click)="editUser(user.id)"><i class="mdi mdi-pencil font-size-18"></i></a>
+                      <a href="javascript:void(0);" class="text-danger" (click)="deleteUser(user.id)"><i class="mdi mdi-delete font-size-18"></i></a>
                     </div>
-                  
-                  </td>
-                  <td>
-                    <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{data.prenom}}</a>
-                    </h5>
-                    
-                  </td>
-                  <td>
-                    {{data.nom}}
-                       </td>
-                  <td>{{data.email}}</td>
-               
-                  <td>
-                    {{data.grade}}
-                  </td>
-                  <td>
-                    <ul class="list-inline font-size-20 contact-links mb-0">
-                   
-
-                      <li class="list-inline-item">
-                        <div dropdown class="dropdown">
-                          <a dropdownToggle href="javascript: void(0);" class="dropdown-toggle card-drop px-2 show" aria-expanded="true"> <i class="mdi mdi-dots-horizontal font-size-18"></i> </a>
-                          <ul *dropdownMenu class="dropdown-menu dropdown-menu-end show" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 31.25px);" placement="bottom-end">
-                            
-                            <li><a href="javascript:void(0);" (click)="deleteUtilisateur(data.id)" class="dropdown-item remove-list" data-remove-id="8"><i class="mdi mdi-trash-can font-size-16 text-danger me-1"></i> Supprimer</a></li>
-                          </ul>
-                        </div>
-                      </li>
-                    </ul>
                   </td>
                 </tr>
               </tbody>
             </table>
-          </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <!--ul class="pagination pagination-rounded justify-content-center mt-4">
-                <pagination [totalItems]="(total | async)!" [(ngModel)]="service.page">
-                </pagination>
-              </ul-->
-            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<!-- Modal -->
-<div bsModal #newContactModal="bs-modal" class="modal fade" id="newContactModal" tabindex="-1" aria-labelledby="newContactModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="newContactModalLabel">Ajouter</h5>
-        <button type="button" class="btn-close" (click)="newContactModal.hide()"></button>
-      </div>
-      <div class="modal-body">
-        <form (submit)="createUtilisateur()">
-          <div class="mb-3">
-            <label for="username-input" class="form-label">Nom</label>
-            <input type="text" id="username-input" class="form-control" placeholder="nom" name="nom" [(ngModel)]="utilisateur.nom" required />
-            <div class="invalid-feedback">Veuillez saisir le nom.</div>
-          </div>
-          <div class="mb-3">
-            <label for="username-input" class="form-label">Prenom</label>
-            <input type="text" id="username-input" class="form-control" placeholder="prenom" name="prenom" [(ngModel)]="utilisateur.prenom" required />
-            <div class="invalid-feedback">Veuillez saisir le Prenom.</div>
-          </div>
-          <div class="mb-3">
-            <label for="age-input" class="form-label">Age:</label>
-            <input type="number" id="age-input" class="form-control" placeholder="Enter age" name="age" [(ngModel)]="utilisateur.age" required />
-            <div class="invalid-feedback">Veuillez saisir l'age.</div>
-          </div>
-          <div class="mb-3">
-            <label for="email-input" class="form-label" >Email</label>
-            <input type="email" id="email-input" class="form-control" placeholder="Enter email" name="email" [(ngModel)]="utilisateur.email" required />
-          </div>
-          <div class="mb-3">
-            <label for="mdp-input" class="form-label">Mot de passe</label>
-            <input type="password" id="mdp-input" class="form-control" placeholder="Enter mot de passe" name="mdp" [(ngModel)]="utilisateur.motDePasse" required />
-          </div>
-          <div class="mb-3">
-            <label for="grade-input" class="form-label">Grade</label>
-            <select class="form-select" id="grade-input" name="grade" [(ngModel)]="utilisateur.grade" required>
-              <option value="Admin">Administrateur</option>
-              <option value="Recruteur">Recruteur</option>
-              <option value="Candidat">Candidat</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <button type="submit" (click)="newContactModal.hide()" class="btn btn-primary">Ajouter</button>
-          </div>
-        </form>
-        <!--form autocomplete="off"  class="needs-validation createContact-form" id="createContact-form" >
-          <div class="row">
-            <div class="col-lg-12">
-        
-              <div class="mb-3">
-                <label for="username-input" class="form-label">Nom</label>
-                <input type="text" id="username-input" class="form-control" placeholder="nom" name="nom" [(ngModel)]="personne.nom" required />
-                <div class="invalid-feedback">Veuillez saisir le nom.</div>
-              </div>
-              <div class="mb-3">
-                <label for="username-input" class="form-label">Prenom</label>
-                <input type="text" id="username-input" class="formname="prenom" [(ngModel)]="personne.prenom"  required />
-                <div class="invalid-feedback">Veuillez saisir le Prenom.</div>
-              </div>
-              <div class="mb-3">
-                <label for="designation-input" class="form-label">Département</label>
-                <input type="text" id="designation-input" class="form-control" placeholder="Enter departement" [(ngModel)]="personne.departement"  name="departement" required />
-                <div class="invalid-feedback">Veuillez saisir le département.</div>
-              </div>
-              <div class="mb-3">-control" placeholder="Enter name" 
-                <label for="email-input" class="form-label">Email</label>
-                <input type="email" id="email-input" class="form-control" [(ngModel)]="personne.email" name="email"  placeholder="Enter email"  required />
-                <div class="invalid-feedback">Veuillez saisir le email.</div>
-              </div>
-              <div class="mb-3">
-                <label for="email-input" class="form-label">Téléphone</label>
-                <input type="email" id="email-input" class="form-control" [(ngModel)]="personne.telephone" name="telephone"  placeholder="Enter email"  required />
-                <div class="invalid-feedback">Veuillez saisir le téléphone.</div>
-              </div>
-              <div class="mb-3">
-                <label for="email-input" class="form-label">Mot de passe</label>
-                <input type="password" id="email-input" class="form-control" [(ngModel)]="personne.mdp" name="mdp"  placeholder="Enter mot de passe"  required />
-                <div class="invalid-feedback">Veuillez saisir le mot de passe.</div>
-              </div>
-              <div class="mb-3">
-                <label for="tag-input" class="form-label">grade</label>
-                <select class="select2 form-control select2-multiple" id="tag-input" [(ngModel)]="personne.grade"  name="grade" data-placeholder="choisir ...">
-                  <option value="Administrateur">Administrateur</option>
-                  <option value="Responsable">Responsable</option>
-                  <option value="Technicien">Technicien</option>
-             
-                </select>
-              </div>
-            </div>
-
-            <div class="col-lg-12">
-              <div class="text-end">
-                <button type="button" class="btn btn-outline-secondary me-1" (click)="newContactModal.hide()">Cancel</button>
-                <button type="submit" id="addContact-btn" class="btn btn-success">Ajouter Utilisateur</button>
-              </div>
-            </div>
-          </div>
-        </form-->
-      </div>
-      <!-- end modal body -->
-    </div>
-    <!-- end modal-content -->
-  </div>
-  <!-- end modal-dialog -->
-</div>
-<!-- end newContactModal -->
-
-<!-- removeItemModal -->
-
-<!-- end removeItemModal -->

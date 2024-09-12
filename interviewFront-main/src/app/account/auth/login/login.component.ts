@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
           // Login success, navigate to the return URL
           console.log(this.loginForm);
           
-          this.router.navigate([this.returnUrl]);
+          this.router.navigate(['/contacts/profile']);
           localStorage.setItem('user', JSON.stringify(response));
         },
         error: (err) => {

@@ -153,7 +153,7 @@ export const MENU: MenuItem[] = [
                 label: 'MENUITEMS.CRYPTO.LIST.WALLET',
                 link: '/crypto/wallet',
                 parentId: 22,
-                role: ['admin','recruteur','candidat'],
+                role: ['admin'],
             },
             {
                 id: 27,
@@ -338,7 +338,7 @@ export const MENU: MenuItem[] = [
                 label: 'MENUITEMS.CONTACTS.LIST.USERLIST',
                 link: '/contacts/list',
                 parentId: 49,
-                role: ['admin','recruteur','candidat'],
+                role: ['recruteur'],
             },
             {
                 id: 52,
