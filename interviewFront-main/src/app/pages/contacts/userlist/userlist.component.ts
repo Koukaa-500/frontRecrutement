@@ -3,7 +3,7 @@ import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-
+import { CandidatureService } from 'src/app/shared/services/candidature.service';
 
 
 import { Utilisateur } from 'src/app/shared/classes/utilisateur';
@@ -12,6 +12,7 @@ import { userList } from './data';
 import { NgbdUserListSortableHeader } from './userlist-sortable.directive';
 import { userListModel } from './userlist.model';
 import { userListService } from './userlist.service';
+import { OffreService } from 'src/app/shared/services/offre.service';
 
 @Component({
   selector: 'app-userlist',
@@ -34,10 +35,10 @@ export class UserlistComponent implements OnInit {
   submitted = false;
   contacts: any;
   users: any[] = [];
-  
+  candidatures:any[] = []
 
   constructor(private modalService: BsModalService, public service: userListService, private formBuilder: UntypedFormBuilder,
-    private utilisateurService:UtilisateurService
+    private utilisateurService:UtilisateurService,private candidatureService:CandidatureService,private offreService:OffreService
   ) {
     // get all utilisateurs
   
@@ -54,6 +55,7 @@ export class UserlistComponent implements OnInit {
     } else {
       console.error('User ID not found in localStorage');
     }
+    this.loadCandidatures()
   }
   
   getUsersByRecruter(id: any): void {
@@ -67,8 +69,42 @@ export class UserlistComponent implements OnInit {
       }
     );
   }
+  loadCandidatures(): void {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const userId = user.id;
+    this.candidatureService.getAllCandidatures()
+      .subscribe(
+        (data: any) => {
+          this.candidatures = data;
+          console.log(data);
+          
+        },
+        (error: any) => {
+          console.error('Error fetching candidatures:', error);
+        }
+      );
+  }
 
 
+  acceptCandidature(candidature: any): void {
+    this.changeCandidatureStatus(candidature, 'ACCEPTED');
+  }
+
+  // Method to change the status to 'REJECTED'
+  rejectCandidature(candidature: any): void {
+    this.changeCandidatureStatus(candidature, 'REJECTED');
+  }
+
+  // Common method to change the status
+  private changeCandidatureStatus(candidatureDto: any, status: 'ACCEPTED' | 'REJECTED'): void {
+    this.candidatureService.changeCandidatureStatus(candidatureDto, status).subscribe(() => {
+      console.log(`Candidature ${candidatureDto.id} status changed to ${status}`);
+      // Reload the candidatures after status change
+      this.loadCandidatures();
+    }, (error: any) => {
+      console.error('Error updating candidature status:', error);
+    });
+  }
 
   // File Upload
 //   imageURL: string | undefined;

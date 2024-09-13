@@ -49,7 +49,7 @@ baseurl = "http://localhost:8082/candidature/postuler"
   changeOffreStatus(offreId: number, status: string): Observable<void> {
     return this.http.put<void>(`${this.url}/${status}`, { id: offreId });
   }
-  applyForJob(candidatureDto: any): Observable<any> {
-    return this.http.post<any>(`${this.baseurl}`, candidatureDto);
+  applyForJob(jobId: any, condidatId: any): Observable<any> {
+    return this.http.post(`${this.baseurl}/${condidatId}/${jobId}`, {});
   }
 }

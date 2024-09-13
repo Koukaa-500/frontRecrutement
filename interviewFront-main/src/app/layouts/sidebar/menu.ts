@@ -155,13 +155,13 @@ export const MENU: MenuItem[] = [
                 parentId: 22,
                 role: ['admin'],
             },
-            {
-                id: 27,
-                label: 'MENUITEMS.CRYPTO.LIST.LISTJOBS',
-                link: '/crypto/orders',
-                parentId: 22,
-                role: ['admin','recruteur','candidat'],
-            },
+            // {
+            //     id: 27,
+            //     label: 'MENUITEMS.CRYPTO.LIST.LISTJOBS',
+            //     link: '/crypto/orders',
+            //     parentId: 22,
+            //     role: ['admin','recruteur','candidat'],
+            // },
            /* {
                 id: 24,
                 label: 'MENUITEMS.CRYPTO.LIST.BUY/SELL',
@@ -195,7 +195,7 @@ export const MENU: MenuItem[] = [
                 parentId: 22
             }*/
         ],
-        role: ['admin','recruteur','candidat'],
+        role: ['admin'],
     },
 /*    {
         id: 30,

@@ -1,8 +1,7 @@
-// src/app/customers/customers.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
+import { CandidatureService } from 'src/app/shared/services/candidature.service';
 import { OffreService } from 'src/app/shared/services/offre.service'; // Adjust path as needed
 
 @Component({
@@ -21,8 +20,13 @@ export class CustomersComponent implements OnInit {
   breadCrumbItems: any; // Breadcrumb items
   isRecruter: boolean = false; // Check if the user is a recruiter
   searchTerm = '';
-  
-  constructor(private fb: FormBuilder, private offreService: OffreService) {
+  role : string ;
+  isModalOpen = false;
+  modal?: boolean = false;
+  modaleData :any;
+  candidatures:any[]=[]
+  status:any
+  constructor(private fb: FormBuilder, private offreService: OffreService,private candidatureService:CandidatureService) {
     this.formData = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -33,8 +37,11 @@ export class CustomersComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.role=JSON.parse(localStorage.getItem('user')).role;
+    console.log("role:",this.role)
     this.checkUserRole();
     this.getJobs();
+    this.loadCandidatures()
   }
 
   checkUserRole() {
@@ -56,7 +63,7 @@ export class CustomersComponent implements OnInit {
     this.offreService.getOffres().subscribe(data => {
       this.jobsData = data;
       console.log(this.jobsData);
-      
+      this.modaleData=data[1];
       if (this.isRecruter) {
         // Recruiter: Show only jobs posted by the recruiter
         const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
@@ -85,29 +92,48 @@ export class CustomersComponent implements OnInit {
   applyJob(jobId: number): void {
     const userString = localStorage.getItem('user');
     if (!userString) {
-      console.error('User not found');
-      return;
+        console.error('User not found');
+        return;
     }
 
     const user = JSON.parse(userString);
     const candidatureDto = {
-      offre: { id: jobId },
-      candidat: {
-        id: user.id,
-        nom: user.nom,
-        prenom: user.prenom,
-        age: user.age,
-        email: user.email,
-        // Add other required fields if necessary
-      }
+        offreId: jobId,
+        candidatId: user.id
     };
-
-    this.offreService.applyForJob(candidatureDto).subscribe(response => {
-      console.log('Application submitted successfully', response);
-      // Optionally update UI or show a success message
+    console.log(candidatureDto);
+    
+    this.offreService.applyForJob(jobId,user.id).subscribe(response => {
+        console.log('Application submitted successfully', response);
+        // Optionally update UI or show a success message
     }, error => {
-      console.error('Error submitting application', error);
-      // Optionally show an error message
+        console.error('Error submitting application', error);
+        // Optionally show an error message
     });
+}
+
+  openModal(data:any) {
+    this.modaleData=data
+    console.log(this.modaleData)
+    this.isModalOpen = true;
   }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+  loadCandidatures(): void {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const userId = user.id;
+    this.candidatureService.getAllCandidaturesByCandidat(userId)
+      .subscribe(
+        (data: any) => {
+          this.candidatures = data;
+          console.log(this.candidatures);
+        },
+        (error: any) => {
+          console.error('Error fetching candidatures:', error);
+        }
+      );
+}
 }

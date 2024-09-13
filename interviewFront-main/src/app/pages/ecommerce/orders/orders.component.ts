@@ -14,7 +14,8 @@ export class OrdersComponent implements OnInit {
   isModalOpen = false;
   offreForm: FormGroup;
   modal?: boolean = false;
-  idRec :number
+  idRec :number;
+  isAdmin:boolean = false
   constructor(private offreservice: OffreService, private formBuilder: FormBuilder) { }
   
   ngOnInit() {
@@ -33,16 +34,17 @@ export class OrdersComponent implements OnInit {
       contractType: ['', Validators.required],
       recruteur: [this.idRec]
     });
+
+    this.isAdmin = JSON.parse(localStorage.getItem('user')).role === 'admin'
   }
 
   getAllOffres() {
     this.offreservice.getOffres().subscribe(
-      (offres: any[]) => { 
-        const userId = JSON.parse(localStorage.getItem('user')).id; // Retrieve recruiter ID from localStorage
-  
-        // Filter offers that have the 'PENDING' status and were created by the logged-in recruiter
-        this.offres = offres.filter((offer: any) => offer.status === 'PENDING' && offer.recruteur === userId);
-        
+      (offres: any[]) => { // Assert the type here
+        if(this.isAdmin){this.offres = offres.filter((offer: any) => offer.status === 'PENDING');}
+        else{
+          this.offres = offres
+        }
         console.log(this.offres);
       },
       error => {

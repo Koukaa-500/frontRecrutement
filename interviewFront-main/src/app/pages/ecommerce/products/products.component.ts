@@ -14,9 +14,9 @@ export class ProductsComponent implements OnInit {
   constructor(private candidatureService: CandidatureService) { }
 
   ngOnInit() {
-    this.candidatureService.getCandidatures()
-      .subscribe(candidatures => {
-        this.candidatures = candidatures;
-      });
+    // this.candidatureService.getCandidatures()
+    //   .subscribe(candidatures => {
+    //     this.candidatures = candidatures;
+    //   });
   }
 }

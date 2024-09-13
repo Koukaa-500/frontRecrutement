@@ -18,21 +18,21 @@
             <table class="table align-middle table-nowrap dt-responsive nowrap w-100 table-check" id="user-list">
               <thead>
                 <tr>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Email</th>
+                  <th>Candidat</th>
+                  <th>Offre</th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let user of users; let i = index;" id="u_{{user.id}}">
-                  <td>{{user.firstName}}</td>
-                  <td>{{user.lastName}}</td>
-                  <td>{{user.email}}</td>
+                <tr *ngFor="let c of candidatures; let i = index;" >
+                  <td>{{c.candidat}}</td>
+                  <td>{{c.offre}}</td>
+                  <td>{{c.status}}</td>
                   <td>
                     <div class="d-flex gap-3">
-                      <a href="javascript:void(0);" class="text-success" (click)="editUser(user.id)"><i class="mdi mdi-pencil font-size-18"></i></a>
-                      <a href="javascript:void(0);" class="text-danger" (click)="deleteUser(user.id)"><i class="mdi mdi-delete font-size-18"></i></a>
+                      <a href="javascript:void(0);" class="text-success" (click)="acceptCandidature(c)"><i class="mdi mdi-pencil font-size-18"></i></a>
+                      <a href="javascript:void(0);" class="text-danger" (click)="rejectCandidature(c)"><i class="mdi mdi-delete font-size-18"></i></a>
                     </div>
                   </td>
                 </tr>
