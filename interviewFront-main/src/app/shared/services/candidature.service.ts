@@ -18,7 +18,7 @@ export class CandidatureService {
 
   // Method to get all candidatures for a specific candidate
   getAllCandidaturesByCandidat(candidateId: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/candidature/${candidateId}`);
+    return this.http.get<any>(`${this.apiUrl}/cand/${candidateId}`);
   }
 
   // Method to update the status of a candidature

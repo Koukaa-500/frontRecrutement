@@ -106,11 +106,17 @@ export class CustomersComponent implements OnInit {
     this.offreService.applyForJob(jobId,user.id).subscribe(response => {
         console.log('Application submitted successfully', response);
         // Optionally update UI or show a success message
+        this.loadCandidatures();
     }, error => {
         console.error('Error submitting application', error);
         // Optionally show an error message
     });
+    
 }
+// changeCandidatureStatus(){
+//   this.candidatureService.changeCandidatureStatus()
+// }
+
 
   openModal(data:any) {
     this.modaleData=data
@@ -125,10 +131,10 @@ export class CustomersComponent implements OnInit {
   loadCandidatures(): void {
     const user = JSON.parse(localStorage.getItem('user'));
     const userId = user.id;
-    this.candidatureService.getAllCandidaturesByCandidat(userId)
+    this.candidatureService.getAllCandidatures()
       .subscribe(
         (data: any) => {
-          this.candidatures = data;
+          this.candidatures = Array.isArray(data) ? data : [];
           console.log(this.candidatures);
         },
         (error: any) => {
@@ -136,4 +142,9 @@ export class CustomersComponent implements OnInit {
         }
       );
 }
+
+getCandidatureByJob(jobId: number): any {
+  return this.candidatures.find(candidature => candidature.offre === jobId);
+}
+
 }

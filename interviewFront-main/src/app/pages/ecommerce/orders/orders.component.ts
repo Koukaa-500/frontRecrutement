@@ -16,13 +16,16 @@ export class OrdersComponent implements OnInit {
   modal?: boolean = false;
   idRec :number;
   isAdmin:boolean = false
+  id:number
+  userRole:string=''
   constructor(private offreservice: OffreService, private formBuilder: FormBuilder) { }
   
   ngOnInit() {
     this.idRec= JSON.parse(localStorage.getItem('user')).id;
+    this.userRole = JSON.parse(localStorage.getItem('user')).role
     this.getAllOffres();
     this.offreForm = this.formBuilder.group({
-      id:['1'],
+      id:[this.id],
       description: ['', Validators.required],
       domaine: ['', Validators.required],
       nbPoste: ['', [Validators.required, Validators.min(1)]],
@@ -38,7 +41,19 @@ export class OrdersComponent implements OnInit {
     this.isAdmin = JSON.parse(localStorage.getItem('user')).role === 'admin'
   }
 
-  getAllOffres() {
+  generateRandomNumberGreaterThan(currentNumber: number): number {
+    // Generate a random integer greater than currentNumber
+    const min = currentNumber + 1; // Ensure the result is always greater
+    const max = currentNumber + 100; // Define an upper limit (you can adjust as needed)
+    
+    // Generate random integer between min (inclusive) and max (inclusive)
+    this.id = Math.floor(Math.random() * (max - min + 1)) + min;
+    
+    return this.id;
+  }
+  
+
+  getAllOffres() { 
     this.offreservice.getOffres().subscribe(
       (offres: any[]) => { // Assert the type here
         if(this.isAdmin){this.offres = offres.filter((offer: any) => offer.status === 'PENDING');}
