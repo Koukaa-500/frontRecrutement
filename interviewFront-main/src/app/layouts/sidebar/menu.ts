@@ -338,7 +338,7 @@ export const MENU: MenuItem[] = [
                 label: 'MENUITEMS.CONTACTS.LIST.USERLIST',
                 link: '/contacts/list',
                 parentId: 49,
-                role: ['recruteur'],
+                role: ['recruteur','admin'],
             },
             {
                 id: 52,

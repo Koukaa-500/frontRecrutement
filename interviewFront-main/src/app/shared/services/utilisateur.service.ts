@@ -6,9 +6,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UtilisateurService {
-// crud operations pour utilisateur avec url de base: http://localhost:8080/utilisateur
-// integration avec spring boot et angular 
-// injection du http client dans le constructeur
 url="http://localhost:8082";
 constructor(private http: HttpClient) { }
 // recuperer tous les utilisateurs
@@ -55,4 +52,34 @@ gitUserByRecruter(id: any): Observable<any> {
   return this.http.get<any>(`${this.url}candidats/all/${id}`);
 }
 
+
+getAllRecruteurs(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.url}/recruteurs`);
+}
+
+
+getAllCandidatures(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.url}/candidats`);
+}
+
+  // Méthode pour supprimer un recruteur par son id
+  deleteRecruteurById(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/recruteurs/${id}`);
+  }
+
+  // Méthode pour supprimer un candidat par son id
+  deleteCandidatById(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/candidats/${id}`);
+  }
+
+  modifyRecruteur(id: number, recruteur: any): Observable<any> {
+    return this.http.put<any>(`${this.url}/recruteurs/${id}`, recruteur);
+  }
+
+  modifyAdmin(id: number, recruteur: any): Observable<any> {
+    return this.http.put<any>(`${this.url}/administrateurs/${id}`, recruteur);
+  }
+  modifyCandidat(id: number, recruteur: any): Observable<any> {
+    return this.http.put<any>(`${this.url}/candidats/${id}`, recruteur);
+  }
 }
