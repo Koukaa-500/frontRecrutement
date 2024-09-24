@@ -36,6 +36,7 @@ export class UserlistComponent implements OnInit {
   contacts: any;
   users: any[] = [];
   candidatures:any[] = []
+  userRole: string;
 
   constructor(private modalService: BsModalService, public service: userListService, private formBuilder: UntypedFormBuilder,
     private utilisateurService:UtilisateurService,private candidatureService:CandidatureService,private offreService:OffreService
@@ -48,14 +49,22 @@ export class UserlistComponent implements OnInit {
   ngOnInit() {
     const user = JSON.parse(localStorage.getItem('user'));
     const userId = user.id;
-
-    if (userId) {
-      // Call the service method and pass the userId
-      this.getUsersByRecruter(userId);
-    } else {
-      console.error('User ID not found in localStorage');
+   this.userRole=JSON.parse(localStorage.getItem('user')).role;
+    console.log("role", this.userRole)
+    if (this.userRole==='admin'){
+      this.loadAllUserToAdmin()
+      console.log("users1:", this.users)
+    }else if(this.userRole==='recruteur'){
+      if (userId) {
+        // Call the service method and pass the userId
+        this.getUsersByRecruter(userId);
+      } else {
+        console.error('User ID not found in localStorage');
+      }
+      this.loadCandidatures()
+      this.users=this.candidatures;
+      console.log("users:", this.users);
     }
-    this.loadCandidatures()
   }
   
   getUsersByRecruter(id: any): void {
@@ -70,8 +79,6 @@ export class UserlistComponent implements OnInit {
     );
   }
   loadCandidatures(): void {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const userId = user.id;
     this.candidatureService.getAllCandidatures()
       .subscribe(
         (data: any) => {
@@ -106,103 +113,80 @@ export class UserlistComponent implements OnInit {
     });
   }
 
-  // File Upload
-//   imageURL: string | undefined;
-//   fileChange(event: any) {
-//     let fileList: any = (event.target as HTMLInputElement);
-//     let file: File = fileList.files[0];
-//     const reader = new FileReader();
-//     reader.onload = () => {
-//       this.imageURL = reader.result as string;
-//       document.querySelectorAll('#member-img').forEach((element: any) => {
-//         element.src = this.imageURL;
-//       });
-//       this.createContactForm.controls['img'].setValue(this.imageURL);
+loadAllUserToAdmin(){
+    // Récupérer recruteurs
+    this.utilisateurService.getAllRecruteurs().subscribe(
+      (recruteurs) => {
+        this.users = recruteurs
+        console.log('recruteur :',this.users)
+       
+
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des recruteurs', error);
+      }
+    );
+
+    // Récupérer candidatures
+    this.utilisateurService.getAllCandidatures().subscribe(
+      (candidatures) => {
+        console.log('candidatures :',candidatures)
+        this.users = [...this.users, ...candidatures];
+        console.log('usersss :',this.users)
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des candidatures', error);
+      }
+    );
+}
+
+
+  // Supprimer un recruteur ou un candidat en fonction de son id
+  deleteUserRoleAdmin(id: number, type: string): void {
+    if (type === 'recruteur') {
+      this.utilisateurService.deleteRecruteurById(id).subscribe(
+        () => {
+          this.users = this.users.filter(item => item.id !== id); // Mise à jour de la liste
+          console.log(`Recruteur avec ID ${id} supprimé`);
+        },
+        (error) => {
+          console.error(`Erreur lors de la suppression du recruteur avec ID ${id}`, error);
+        }
+      );
+    } else if (type === 'candidat') {
+      this.utilisateurService.deleteCandidatById(id).subscribe(
+        () => {
+          this.users = this.users.filter(item => item.id !== id); // Mise à jour de la liste
+          console.log(`Candidat avec ID ${id} supprimé`);
+        },
+        (error) => {
+          console.error(`Erreur lors de la suppression du candidat avec ID ${id}`, error);
+        }
+      );
+    }
+  }
+// getRecruteurs(): void {
+//   this.utilisateurService.getAllRecruteurs().subscribe(
+//     (data) => {
+//       this.users = data;
+//       console.log('Recruteurs:', this.users);
+//     },
+//     (error) => {
+//       console.error('Erreur lors de la récupération des recruteurs', error);
 //     }
-//     reader.readAsDataURL(file)
-//   }
-
-//   // Save User
-//   saveUser() {
-//     if (this.createContactForm.valid) {
-//       if (this.createContactForm.get('id')?.value) {
-//         this.service.products = userList.map((data: { id: any; }) => data.id === this.createContactForm.get('id')?.value ? { ...data, ...this.createContactForm.value } : data)
-//       }
-//       else {
-//         const name = this.createContactForm.get('name')?.value;
-//         const email = this.createContactForm.get('email')?.value;
-//         const position = this.createContactForm.get('position')?.value;
-//         const tags = this.createContactForm.get('tags')?.value;
-//         userList.push({
-//           id: userList.length + 1,
-//           profile: this.imageURL,
-//           name,
-//           email,
-//           position,
-//           tags,
-//           project: "136",
-//           isSelected: false
-//         })
-//       }
-//       this.createContactForm.reset();
-//       this.newContactModal.hide()
-//     }
-//   }
-
-//   // Edit User
-//   editUser(id: any) {
-//     this.submitted = false;
-//     this.newContactModal.show();
-
-//     var modelTitle = document.querySelector('.modal-title') as HTMLAreaElement;
-//     modelTitle.innerHTML = 'Edit Profile';
-//     var updateBtn = document.getElementById('addContact-btn') as HTMLAreaElement;
-//     updateBtn.innerHTML = "Update";
-
-//     var listData = this.contacts[id];
-
-//     this.createContactForm.controls['id'].setValue(listData.id);
-//     this.createContactForm.controls['name'].setValue(listData.name);
-//     this.createContactForm.controls['email'].setValue(listData.email);
-//     this.createContactForm.controls['position'].setValue(listData.position);
-//     this.createContactForm.controls['tags'].setValue(listData.tags);
-//     this.createContactForm.controls['img'].setValue(listData.profile);
-//   }
-
-//   // Delete User
-//   removeUser(id: any) {
-//     this.deleteId=id
-//     this.removeItemModal.show();
-//   }
-
-//   confirmDelete() {
-//     userList.splice(this.deleteId, 1);
-//     this.removeItemModal.hide();
-//   }
-// // createPersonne
-// createUtilisateur(){
-//   this.utilisateurService.addUtilisateur(this.utilisateur).subscribe(
-//     response=>{
-//       console.log("utilisateur ajouté avec succés",response);
-//       this.utilisateur={} as Utilisateur;
-//       this.getUtilisateurs();
-//     }
-//   )
-// }
-// // deletePersonne
-// deleteUtilisateur(id:any){
-//   if(confirm("Voulez-vous vraiment supprimer cet utilisateur?"))
-//     {
-//   this.utilisateurService.deleteUtilisateur(id).subscribe(
-//     response=>{
-//       console.log("utilisateur supprimé avec succés",response);
-//       this.getUtilisateurs();
-//     }
-//   )
-
-//     }
+//   );
 // }
 
-
+// getCandidatures(): void {
+//   this.utilisateurService.getAllCandidatures().subscribe(
+//     (data) => {
+//       this.candidatures = data;
+//       console.log('Candidatures:', this.candidatures);
+//     },
+//     (error) => {
+//       console.error('Erreur lors de la récupération des candidatures', error);
+//     }
+//   );
+// }
 
 }

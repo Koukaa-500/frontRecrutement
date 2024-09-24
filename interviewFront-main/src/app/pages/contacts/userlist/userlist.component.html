@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="userRole==='recruteur'">
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
@@ -39,6 +39,55 @@
               </tbody>
             </table>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- admin template -->
+
+<div class="container-fluid" *ngIf="userRole==='admin'">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box me-2 mb-2 d-inline-block">
+                <div class="position-relative">
+                  <input type="text" class="form-control" autocomplete="off" id="searchTableList" placeholder="Search..." >
+                  <i class="bx bx-search-alt search-icon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive mb-0">
+            <table class="table align-middle table-nowrap dt-responsive nowrap w-100 table-check" id="user-list">
+              <thead>
+                <tr>
+                  <th>nom</th>
+                  <th>email</th>
+                  <th>Role</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let c of users; let i = index;" >
+                  <td>{{c.nom}}</td>
+                  <td>{{c.email}}</td>
+                  <td>{{c.role}}</td>
+                  <td>
+                    <div class="d-flex gap-3">
+                      <a href="javascript:void(0);" class="text-danger" (click)="deleteUserRoleAdmin(c.id,c.role)"><i class="mdi mdi-delete font-size-18"></i></a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>  
         </div>
       </div>
     </div>

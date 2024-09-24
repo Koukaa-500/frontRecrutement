@@ -18,23 +18,23 @@
     "@angular-devkit/core" "16.1.4"
     rxjs "7.8.1"
 
-"@angular-devkit/architect@0.1602.15":
-  version "0.1602.15"
-  resolved "https://registry.npmjs.org/@angular-devkit/architect/-/architect-0.1602.15.tgz"
-  integrity sha512-+yPlUG5c8l7Z/A6dyeV7NQjj4WDWnWWQt+8eW/KInwVwoYiM32ntTJ0M4uU/aDdHuwKQnMLly28AcSWPWKYf2Q==
+"@angular-devkit/architect@0.1602.16":
+  version "0.1602.16"
+  resolved "https://registry.npmjs.org/@angular-devkit/architect/-/architect-0.1602.16.tgz"
+  integrity sha512-aWEeGU4UlbrSKpcAZsldVNxNXAWEeu9hM2BPk77GftbRC8PBMWpgYyrJWTz2ryn8aSmGKT3T8OyBH4gZA/667w==
   dependencies:
-    "@angular-devkit/core" "16.2.15"
+    "@angular-devkit/core" "16.2.16"
     rxjs "7.8.1"
 
 "@angular-devkit/build-angular@^16.1.4":
-  version "16.2.15"
-  resolved "https://registry.npmjs.org/@angular-devkit/build-angular/-/build-angular-16.2.15.tgz"
-  integrity sha512-gw9wQENYVNUCB2bnzk0yKd6YGlemDwuwKnrPnSm4myyMuScZpW+e+zliGW+JXRuVWZqiTJNcdd58e4CrrreILg==
+  version "16.2.16"
+  resolved "https://registry.npmjs.org/@angular-devkit/build-angular/-/build-angular-16.2.16.tgz"
+  integrity sha512-gEni21kza41xaRnVWP1sMuiWHS/rdoym5FEEGDo9PG60LwRC4lekIgT09GpTlmMu007UEfo0ccQnGroD6+MqWg==
   dependencies:
     "@ampproject/remapping" "2.2.1"
-    "@angular-devkit/architect" "0.1602.15"
-    "@angular-devkit/build-webpack" "0.1602.15"
-    "@angular-devkit/core" "16.2.15"
+    "@angular-devkit/architect" "0.1602.16"
+    "@angular-devkit/build-webpack" "0.1602.16"
+    "@angular-devkit/core" "16.2.16"
     "@babel/core" "7.22.9"
     "@babel/generator" "7.22.9"
     "@babel/helper-annotate-as-pure" "7.22.5"
@@ -46,7 +46,7 @@
     "@babel/runtime" "7.22.6"
     "@babel/template" "7.22.5"
     "@discoveryjs/json-ext" "0.5.7"
-    "@ngtools/webpack" "16.2.15"
+    "@ngtools/webpack" "16.2.16"
     "@vitejs/plugin-basic-ssl" "1.0.1"
     ansi-colors "4.1.3"
     autoprefixer "10.4.14"
@@ -89,7 +89,7 @@
     text-table "0.2.0"
     tree-kill "1.2.2"
     tslib "2.6.1"
-    vite "4.5.3"
+    vite "4.5.5"
     webpack "5.94.0"
     webpack-dev-middleware "6.1.2"
     webpack-dev-server "4.15.1"
@@ -98,12 +98,12 @@
   optionalDependencies:
     esbuild "0.18.17"
 
-"@angular-devkit/build-webpack@0.1602.15":
-  version "0.1602.15"
-  resolved "https://registry.npmjs.org/@angular-devkit/build-webpack/-/build-webpack-0.1602.15.tgz"
-  integrity sha512-ms1+vCDdV0KX8BplJ7JoKH3wKjWHxxZTOX+mSPIjt4wS1uAk5DnezXHIjpBiJ3HY9XVHFI9C0HT4n7o6kFIOEQ==
+"@angular-devkit/build-webpack@0.1602.16":
+  version "0.1602.16"
+  resolved "https://registry.npmjs.org/@angular-devkit/build-webpack/-/build-webpack-0.1602.16.tgz"
+  integrity sha512-b99Sj0btI0C2GIfzoyP8epDMIOLqSTqXOxw6klGtBLaGZfM5KAxqFzekXh8cAnHxWCj20WdNhezS1eUTLOkaIA==
   dependencies:
-    "@angular-devkit/architect" "0.1602.15"
+    "@angular-devkit/architect" "0.1602.16"
     rxjs "7.8.1"
 
 "@angular-devkit/core@16.1.4":
@@ -117,10 +117,10 @@
     rxjs "7.8.1"
     source-map "0.7.4"
 
-"@angular-devkit/core@16.2.15":
-  version "16.2.15"
-  resolved "https://registry.npmjs.org/@angular-devkit/core/-/core-16.2.15.tgz"
-  integrity sha512-68BgPWpcjNKz++uvLFG8IZaOH3ti2BWQVqaE3yTIYaMoNt0y0A0X2MUVd7EGbAGUk2JdloWJv5LTPVZMzCuK4w==
+"@angular-devkit/core@16.2.16":
+  version "16.2.16"
+  resolved "https://registry.npmjs.org/@angular-devkit/core/-/core-16.2.16.tgz"
+  integrity sha512-5xHs9JFmp78sydrOAg0UGErxfMVv5c2f3RXoikS7eBOOXTWEi5pmnOkOvSJ3loQFGVs3Y7i+u02G3VrF5ZxOrA==
   dependencies:
     ajv "8.12.0"
     ajv-formats "2.1.1"
@@ -2149,10 +2149,10 @@
   dependencies:
     tslib "^2.3.1"
 
-"@ngtools/webpack@16.2.15":
-  version "16.2.15"
-  resolved "https://registry.npmjs.org/@ngtools/webpack/-/webpack-16.2.15.tgz"
-  integrity sha512-rD4IHt3nS6PdIKvmoqwIadMIGKsemBSz412kD8Deetl0TiCVhD/Tn1M00dxXzMSHSFCQcOKxdZAeD53yRwTOOA==
+"@ngtools/webpack@16.2.16":
+  version "16.2.16"
+  resolved "https://registry.npmjs.org/@ngtools/webpack/-/webpack-16.2.16.tgz"
+  integrity sha512-4gm2allK0Pjy/Lxb9IGRnhEZNEOJSOTWwy09VOdHouV2ODRK7Tto2LgteaFJUUSLkuvWRsI7pfuA6yrz8KDfHw==
 
 "@ngx-translate/core@^15.0.0":
   version "15.0.0"
@@ -4262,9 +4262,9 @@ exponential-backoff@^3.1.1:
   integrity sha512-dX7e/LHVJ6W3DE1MHWi9S1EYzDESENfLrYohG2G++ovZrYOkm4Knwa0mc1cn84xJOR4KEU0WSchhLbd0UklbHw==
 
 express@^4.17.3:
-  version "4.20.0"
-  resolved "https://registry.npmjs.org/express/-/express-4.20.0.tgz"
-  integrity sha512-pLdae7I6QqShF5PnNTCVn4hI91Dx0Grkn2+IAsMTgMIKuQVte2dN9PeGSSAME2FR8anOhVA62QDIUaWVfEXVLw==
+  version "4.21.0"
+  resolved "https://registry.npmjs.org/express/-/express-4.21.0.tgz"
+  integrity sha512-VqcNGcj/Id5ZT1LZ/cfihi3ttTn+NJmkli2eZADigjq29qTlWi/hAQ43t/VLPq8+UX06FCEx3ByOYet6ZFblng==
   dependencies:
     accepts "~1.3.8"
     array-flatten "1.1.1"
@@ -4278,7 +4278,7 @@ express@^4.17.3:
     encodeurl "~2.0.0"
     escape-html "~1.0.3"
     etag "~1.8.1"
-    finalhandler "1.2.0"
+    finalhandler "1.3.1"
     fresh "0.5.2"
     http-errors "2.0.0"
     merge-descriptors "1.0.3"
@@ -4287,11 +4287,11 @@ express@^4.17.3:
     parseurl "~1.3.3"
     path-to-regexp "0.1.10"
     proxy-addr "~2.0.7"
-    qs "6.11.0"
+    qs "6.13.0"
     range-parser "~1.2.1"
     safe-buffer "5.2.1"
     send "0.19.0"
-    serve-static "1.16.0"
+    serve-static "1.16.2"
     setprototypeof "1.2.0"
     statuses "2.0.1"
     type-is "~1.6.18"
@@ -4395,13 +4395,13 @@ finalhandler@1.1.2:
     statuses "~1.5.0"
     unpipe "~1.0.0"
 
-finalhandler@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/finalhandler/-/finalhandler-1.2.0.tgz"
-  integrity sha512-5uXcUVftlQMFnWC9qu/svkWv3GTd2PfUhK/3PLkYNAe7FbqJMt3515HaxE6eRL74GdsriiwujiawdaB1BpEISg==
+finalhandler@1.3.1:
+  version "1.3.1"
+  resolved "https://registry.npmjs.org/finalhandler/-/finalhandler-1.3.1.tgz"
+  integrity sha512-6BN9trH7bp3qvnrRyzsBz+g3lZxTNZTbVO2EV1CS0WIcDbawYVdYvGflME/9QP0h0pYlCDBCTjYa9nZzMDpyxQ==
   dependencies:
     debug "2.6.9"
-    encodeurl "~1.0.2"
+    encodeurl "~2.0.0"
     escape-html "~1.0.3"
     on-finished "2.4.1"
     parseurl "~1.3.3"
@@ -5135,10 +5135,13 @@ inquirer@8.2.4:
     through "^2.3.6"
     wrap-ansi "^7.0.0"
 
-ip@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/ip/-/ip-2.0.1.tgz"
-  integrity sha512-lJUL9imLTNi1ZfXT+DU6rBBdbiKGBuay9B6xGSPVjUeQwaH1RIGqef8RZkUtHioLmSNpPR5M4HVKJGm1j8FWVQ==
+ip-address@^9.0.5:
+  version "9.0.5"
+  resolved "https://registry.npmjs.org/ip-address/-/ip-address-9.0.5.tgz"
+  integrity sha512-zHtQzGojZXTwZTHQqra+ETKd4Sn3vgi7uBmlPoXVWZqYvuKmtI0l/VZTjqGmJY9x88GGOaZ9+G9ES8hC4T4X8g==
+  dependencies:
+    jsbn "1.1.0"
+    sprintf-js "^1.1.3"
 
 ipaddr.js@^2.0.1:
   version "2.2.0"
@@ -5428,6 +5431,11 @@ jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.npmjs.org/jsbn/-/jsbn-0.1.1.tgz"
   integrity sha512-UVU9dibq2JcFWxQPA6KCqj5O42VOmAY3zQUfEKxU0KpTGXwNoCjkX1e13eHNvw/xPynt6pU0rZ1htjWTNTSXsg==
+
+jsbn@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/jsbn/-/jsbn-1.1.0.tgz"
+  integrity sha512-4bYVV3aAMtDTTu4+xsDYa6sy9GyJ69/amsu9sYF2zqjiEoZA5xJi3BrfX3uY+/IekIu7MwdObdbDWpoZdBv3/A==
 
 jsdom@^16.4.0:
   version "16.7.0"
@@ -6899,13 +6907,6 @@ qs@~5.2.0:
   resolved "https://registry.npmjs.org/qs/-/qs-5.2.1.tgz"
   integrity sha512-sh/hmLUTLEiYFhSbRvkM4zj6fMWnbqQt9wrppR2LJA/U/u4xS2eWN8LBE1xc79ExYZJBVZYSMBv/INC7wpE+fw==
 
-qs@6.11.0:
-  version "6.11.0"
-  resolved "https://registry.npmjs.org/qs/-/qs-6.11.0.tgz"
-  integrity sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==
-  dependencies:
-    side-channel "^1.0.4"
-
 qs@6.13.0:
   version "6.13.0"
   resolved "https://registry.npmjs.org/qs/-/qs-6.13.0.tgz"
@@ -7183,9 +7184,9 @@ rimraf@^3.0.0, rimraf@^3.0.2:
     glob "^7.1.3"
 
 rollup@^3.27.1:
-  version "3.29.4"
-  resolved "https://registry.npmjs.org/rollup/-/rollup-3.29.4.tgz"
-  integrity sha512-oWzmBZwvYrU0iJHtDmhsm662rC15FRXmcjCk1xD771dFDx5jJ02ufAQQTn0etB2emNk4J9EZg/yWKpsn9BWGRw==
+  version "3.29.5"
+  resolved "https://registry.npmjs.org/rollup/-/rollup-3.29.5.tgz"
+  integrity sha512-GVsDdsbJzzy4S/v3dqWPJ7EfvZJfCHiDqe80IyrF59LYuP+e6U1LJoUqeuqRbwAWoMNoXivMNeNAOf5E22VA1w==
   optionalDependencies:
     fsevents "~2.3.2"
 
@@ -7364,25 +7365,6 @@ semver@7.5.4:
   dependencies:
     lru-cache "^6.0.0"
 
-send@0.18.0:
-  version "0.18.0"
-  resolved "https://registry.npmjs.org/send/-/send-0.18.0.tgz"
-  integrity sha512-qqWzuOjSFOuqPjFe4NOsMLafToQQwBSOEpS+FwEt3A2V3vKubTquT3vmLTQpFgMXp8AlFWFuP1qKaJZOtPpVXg==
-  dependencies:
-    debug "2.6.9"
-    depd "2.0.0"
-    destroy "1.2.0"
-    encodeurl "~1.0.2"
-    escape-html "~1.0.3"
-    etag "~1.8.1"
-    fresh "0.5.2"
-    http-errors "2.0.0"
-    mime "1.6.0"
-    ms "2.1.3"
-    on-finished "2.4.1"
-    range-parser "~1.2.1"
-    statuses "2.0.1"
-
 send@0.19.0:
   version "0.19.0"
   resolved "https://registry.npmjs.org/send/-/send-0.19.0.tgz"
@@ -7422,15 +7404,15 @@ serve-index@^1.9.1:
     mime-types "~2.1.17"
     parseurl "~1.3.2"
 
-serve-static@1.16.0:
-  version "1.16.0"
-  resolved "https://registry.npmjs.org/serve-static/-/serve-static-1.16.0.tgz"
-  integrity sha512-pDLK8zwl2eKaYrs8mrPZBJua4hMplRWJ1tIFksVC3FtBEBnl8dxgeHtsaMS8DhS9i4fLObaon6ABoc4/hQGdPA==
+serve-static@1.16.2:
+  version "1.16.2"
+  resolved "https://registry.npmjs.org/serve-static/-/serve-static-1.16.2.tgz"
+  integrity sha512-VqpjJZKadQB/PEbEwvFdO43Ax5dFBZ2UECszz8bQ7pi7wt//PWe1P6MN7eCnjsatYtBT6EuiClbjSWP2WrIoTw==
   dependencies:
-    encodeurl "~1.0.2"
+    encodeurl "~2.0.0"
     escape-html "~1.0.3"
     parseurl "~1.3.3"
-    send "0.18.0"
+    send "0.19.0"
 
 set-blocking@^2.0.0:
   version "2.0.0"
@@ -7483,7 +7465,7 @@ shell-quote@^1.8.1:
   resolved "https://registry.npmjs.org/shell-quote/-/shell-quote-1.8.1.tgz"
   integrity sha512-6j1W9l1iAs/4xYBI1SYOVZyFcCis9b4KCLQ8fgAGG07QvzaRLVVRQvAy85yNmmZSjYjg4MWh4gNvlPujU/5LpA==
 
-side-channel@^1.0.4, side-channel@^1.0.6:
+side-channel@^1.0.6:
   version "1.0.6"
   resolved "https://registry.npmjs.org/side-channel/-/side-channel-1.0.6.tgz"
   integrity sha512-fDW/EZ6Q9RiO8eFG8Hj+7u/oW+XrPTIChwCOM2+th2A6OblDtYYIpve9m+KvI9Z4C9qSEXlaGR6bTEYHReuglA==
@@ -7600,11 +7582,11 @@ socks-proxy-agent@^7.0.0:
     socks "^2.6.2"
 
 socks@^2.6.2:
-  version "2.7.1"
-  resolved "https://registry.npmjs.org/socks/-/socks-2.7.1.tgz"
-  integrity sha512-7maUZy1N7uo6+WVEX6psASxtNlKaNVMlGQKkG/63nEDdLOWNbiUMoLK7X4uYoLhQstau72mLgfEWcXcwsaHbYQ==
+  version "2.8.3"
+  resolved "https://registry.npmjs.org/socks/-/socks-2.8.3.tgz"
+  integrity sha512-l5x7VUUWbjVFbafGLxPWkYsHIhEvmF85tbIeFZWc8ZPtoMyybuEhL7Jye/ooC4/d48FgOjSJXgsF/AJPYCW8Zw==
   dependencies:
-    ip "^2.0.0"
+    ip-address "^9.0.5"
     smart-buffer "^4.2.0"
 
 source-map-js@^1.0.2, "source-map-js@>=0.6.2 <2.0.0":
@@ -7720,10 +7702,10 @@ spdy@^4.0.2:
     select-hose "^2.0.0"
     spdy-transport "^3.0.0"
 
-sprintf-js@^1.0.3:
-  version "1.1.2"
-  resolved "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.1.2.tgz"
-  integrity sha512-VE0SOVEHCk7Qc8ulkWw3ntAzXuqf7S2lvwQaDLRnUeIEaKNQJzV6BwmLKhOqT61aGhfUMrXeaBk+oDGCzvhcug==
+sprintf-js@^1.0.3, sprintf-js@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.1.3.tgz"
+  integrity sha512-Oo+0REFV59/rz3gfJNKQiBlwfHaSESl1pcGyABQsnnIfWOFt6JNj5gCog2U6MLZ//IGYD+nA8nI+mTShREReaA==
 
 sprintf-js@~1.0.2:
   version "1.0.3"
@@ -7942,9 +7924,9 @@ svg.select.js@^3.0.1:
     svg.js "^2.6.5"
 
 sweetalert2@^11.6.13:
-  version "11.6.13"
-  resolved "https://registry.npmjs.org/sweetalert2/-/sweetalert2-11.6.13.tgz"
-  integrity sha512-n5yVF0FNx1lm4XzpPyb1HIaiptzODfVyeCzmB809tpK+1bPdoKoevKOxYjrtId75DV7xuIp4r6cjn8xUAB8dPQ==
+  version "11.14.1"
+  resolved "https://registry.npmjs.org/sweetalert2/-/sweetalert2-11.14.1.tgz"
+  integrity sha512-xadhfcA4STGMh8nC5zHFFWURhRpWc4zyI3GdMDFH/m3hGWZeQQNWhX9xcG4lI9gZYsi/IlazKbwvvje3juL3Xg==
 
 symbol-observable@4.0.0:
   version "4.0.0"
@@ -8311,10 +8293,10 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-vite@4.5.3:
-  version "4.5.3"
-  resolved "https://registry.npmjs.org/vite/-/vite-4.5.3.tgz"
-  integrity sha512-kQL23kMeX92v3ph7IauVkXkikdDRsYMGTVl5KY2E9OY4ONLvkHf04MDTbnfo6NKxZiDLWzVpP5oTa8hQD8U3dg==
+vite@4.5.5:
+  version "4.5.5"
+  resolved "https://registry.npmjs.org/vite/-/vite-4.5.5.tgz"
+  integrity sha512-ifW3Lb2sMdX+WU91s3R0FyQlAyLxOzCSCP37ujw0+r5POeHPwe6udWVIElKQq8gk3t7b8rkmvqC6IHBpCff4GQ==
   dependencies:
     esbuild "^0.18.10"
     postcss "^8.4.27"
