@@ -86,6 +86,9 @@
                         <span *ngIf="candidature.status === 'ACCEPTED' && job.status === 'ACCEPTED'" class="text-success">
                           {{ candidature.status | titlecase }}
                         </span>
+                        <span *ngIf="candidature.status === 'REJECTED' && job.status === 'ACCEPTED'" class="text-danger">
+                          {{ candidature.status | titlecase }}
+                        </span>
                         <span *ngIf="candidature.status === 'PENDING' && job.status === 'ACCEPTED'" class="text-warning">
                           {{ candidature.status | titlecase }}
                         </span>
@@ -126,8 +129,13 @@
                     <td>
                       <div class="col-sm-8">
                         <div class="text-sm-end">
-                          <button *ngIf="job.status === 'ACCEPTED'" type="button" class="btn btn-info btn-rounded mb-2 me-2" (click)="openModal(job)">
+                          <button *ngIf="job.status === 'ACCEPTED'" type="button" class="btn btn-info btn-rounded mb-2 me-2"
+                            (click)="openModal(job)">
                             <i class="mdi mdi-plus mr-1"></i> View More
+                          </button>
+                          <button *ngIf="job.status === 'ACCEPTED'" type="button" class="btn btn-danger btn-rounded mb-2 me-2"
+                            (click)="openReportModal(job)">
+                            <i class="mdi mdi-plus mr-1"></i> Report
                           </button>
                         </div>
                       </div>
@@ -189,5 +197,44 @@
         </div>
         <!--end col-->
     </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- reclamation modal -->
+
+  <div id="reportModal" class="modal" [ngClass]="{'show': isReportModalOpen}">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h4>Submit Report</h4>
+      <form [formGroup]="reportForm" (ngSubmit)="submitReport()">
+        
+        <!-- Candidat Field -->
+        <div class="form-group">
+          <label for="candidat">Candidat Input</label>
+          <input type="text" formControlName="candidat" id="candidat" class="form-control" [readonly]="isAdmin" [value]="content" >
+        </div>
+  
+        <!-- Admin Field (Read-Only for Candidat) -->
+        <div class="form-group">
+          <label for="admin">Admin Response</label>
+          <input 
+            type="text" 
+            formControlName="admin" 
+            id="admin" 
+            class="form-control" 
+            [readonly]="!isAdmin"
+            [value]="adminResponse" 
+          >
+        </div>
+        
+  
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" [disabled]="!reportForm.valid">Submit</button>
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        </div>
+      </form>
     </div>
   </div>

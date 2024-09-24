@@ -63,8 +63,85 @@
         </div>
       </div>
     </div>
+
+    <div class="table-responsive mb-0">
+      <table class="table align-middle table-nowrap dt-responsive nowrap w-100 table-check" id="reclamations-list">
+        <thead>
+          <tr>
+            
+            <th>Content</th>
+            
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let reclamation of reclamations">
+            
+            <td>{{ reclamation.content }}</td>
+            
+            <td [ngClass]="{
+              'status-pending': reclamation.status === 'Pending',
+              'status-accepted': reclamation.status === 'Opened'
+            }">
+          {{ reclamation.status }}
+        </td>
+        
+            <td>
+              <button class="btn btn-primary" (click)="openModal(reclamation.id)" *ngIf="!reclamation.response" >
+                Reply
+              </button>
+              <button class="btn btn-danger " style="margin-left: 1rem;" (click)="onDeleteReclamation(reclamation.id)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
   
+  
+  
+  
+  
+
+
+<!-- Table for Reclamations -->
+
+
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': isModalOpen}" *ngIf="isModalOpen">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Respond to Reclamation</h5>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="responseForm">
+          <div class="form-group">
+            <label for="candidatMessage">Candidat Message</label>
+            <textarea id="candidatMessage" class="form-control" [value]="selectedReclamation?.content" readonly></textarea>
+          </div>
+          <div class="form-group">
+            <label for="adminResponse">Your Response</label>
+            <input type="text" id="adminResponse" formControlName="adminResponse" class="form-control" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="submitResponse()">Submit</button>
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
   
   
   

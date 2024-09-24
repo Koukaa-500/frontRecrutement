@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UtilisateurService {
 url="http://localhost:8082";
+private baseUrl = 'http://localhost:8082/reclamations';
 constructor(private http: HttpClient) { }
 // recuperer tous les utilisateurs
 getUtilisateurs(){
@@ -82,4 +83,41 @@ getAllCandidatures(): Observable<any[]> {
   modifyCandidat(id: number, recruteur: any): Observable<any> {
     return this.http.put<any>(`${this.url}/candidats/${id}`, recruteur);
   }
+
+
+
+// Reclamation
+
+submitReclamation(candidatId: number, jobId: number, content: string): Observable<any> {
+  const body = {
+    candidatId: candidatId,
+    jobId: jobId,
+    content: content
+  };
+  return this.http.post(`${this.baseUrl}/candidat`, body);
+}
+
+// Get reclamations by candidate ID
+getReclamationsByCandidat(candidatId: number): Observable<any[]> {
+  return this.http.get<any[]>(`${this.baseUrl}/${candidatId}`);
+}
+
+// Get all reclamations (Admin view)
+getAllReclamations(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.baseUrl}/admin`);
+}
+
+// Respond to a specific reclamation
+respondToReclamation(id: number, response: string): Observable<any> {
+  const body = { response: response };
+  return this.http.post(`${this.baseUrl}/${id}`, body);
+}
+
+getReclamationById(id:number): Observable<any>{
+  return this.http.get(`${this.baseUrl}/byid/${id}`)
+}
+deleteReclamation(id:number): Observable<any>{
+  return this.http.delete(`${this.baseUrl}/${id}`)
+}
+
 }

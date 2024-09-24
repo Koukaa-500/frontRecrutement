@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { Observable, of } from 'rxjs';
 import { CandidatureService } from 'src/app/shared/services/candidature.service';
 import { OffreService } from 'src/app/shared/services/offre.service'; // Adjust path as needed
+import { UtilisateurService } from 'src/app/shared/services/utilisateur.service';
 
 @Component({
   selector: 'app-customers',
@@ -11,6 +13,7 @@ import { OffreService } from 'src/app/shared/services/offre.service'; // Adjust 
 })
 export class CustomersComponent implements OnInit {
   formData: FormGroup;
+  reportForm:FormGroup
   usersData: any[] = []; // Array to hold user data (mocked)
   filteredUsers: any[] = []; // Array to hold filtered user data
   jobsData: any = []; // Array to hold all job data
@@ -26,7 +29,13 @@ export class CustomersComponent implements OnInit {
   modaleData :any;
   candidatures:any[]=[]
   status:any
-  constructor(private fb: FormBuilder, private offreService: OffreService,private candidatureService:CandidatureService) {
+  isAdmin : boolean;
+  isReportModalOpen:boolean
+  selectedJobId: number | null = null; // Track the jobId for which the report is being submitted
+  candidatId: number | null = null;
+  adminResponse:string
+  content:string
+  constructor(private fb: FormBuilder, private offreService: OffreService,private candidatureService:CandidatureService,private utilisateurService : UtilisateurService) {
     this.formData = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -34,14 +43,21 @@ export class CustomersComponent implements OnInit {
       address: ['', Validators.required],
       balance: ['', Validators.required]
     });
+
+    this.reportForm = this.fb.group({
+      candidat: [{ value: '', disabled: this.isAdmin }, Validators.required],
+      admin: [{ value: '', disabled: !this.isAdmin }, Validators.required]
+    });
   }
 
   ngOnInit() {
-    this.role=JSON.parse(localStorage.getItem('user')).role;
-    console.log("role:",this.role)
-    this.checkUserRole();
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    this.candidatId = user.id;
+    this.isAdmin = user.role === 'admin';
     this.getJobs();
-    this.loadCandidatures()
+    this.loadCandidatures();
+    this.getReclamationsByCandidat(this.candidatId )
+    
   }
 
   checkUserRole() {
@@ -62,8 +78,8 @@ export class CustomersComponent implements OnInit {
   getJobs(): void {
     this.offreService.getOffres().subscribe(data => {
       this.jobsData = data;
-      console.log(this.jobsData);
-      this.modaleData=data[1];
+      this.modaleData = data;
+      console.log(this.modaleData);
       if (this.isRecruter) {
         // Recruiter: Show only jobs posted by the recruiter
         const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
@@ -74,6 +90,7 @@ export class CustomersComponent implements OnInit {
       }
     });
   }
+  
 
   // Method to update job status (Recruiter Action)
   updateJobStatus(jobId: number, status: 'accepted' | 'rejected'): void {
@@ -124,8 +141,50 @@ export class CustomersComponent implements OnInit {
     this.isModalOpen = true;
   }
 
+  openReportModal(job: any) {
+    this.modaleData = job; // Set the selected jobId when opening the modal
+    this.isReportModalOpen = true;
+  
+    // Fetch reclamations for the current candidate
+    this.utilisateurService.getReclamationsByCandidat(this.candidatId).subscribe(reclamations => {
+      // Find the reclamation related to the selected job
+      const reclamation = reclamations.find(rec => rec.jobId === job.id);
+      console.log("reclamationssss" , reclamation);
+      
+  
+      if (reclamation) {
+        // If a matching reclamation is found, fetch its details
+        this.utilisateurService.getReclamationById(reclamation.id).subscribe(response => {
+          this.content = response.content;
+          this.adminResponse = response.response; // Assuming this is the correct field in your API response
+          this.reportForm.patchValue({ admin: this.adminResponse }); // Set admin response in form
+        });
+      } else {
+        // Handle the case where no reclamation is found for the job
+        console.warn(`No reclamation found for job ID: ${job.id}`);
+        this.adminResponse = ''; // Reset admin response if not found
+        this.reportForm.patchValue({ admin: this.adminResponse }); // Clear the admin field in the form
+      }
+    });
+  }
+  
+  
+
+  getReclamationById(id: number): void {
+    this.utilisateurService.getReclamationById(id).subscribe(response => {
+      // Assuming the response contains the admin response
+      this.adminResponse = response.adminResponse; // Set the admin response from the API
+      this.reportForm.patchValue({ admin: this.adminResponse }); // Patch the admin response into the form
+    }, error => {
+      console.error('Error fetching reclamation:', error);
+    });
+  }
+
+  
+  // Close modal
   closeModal() {
     this.isModalOpen = false;
+    this.isReportModalOpen = false;
   }
 
   loadCandidatures(): void {
@@ -135,7 +194,7 @@ export class CustomersComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.candidatures = Array.isArray(data) ? data : [];
-          console.log(this.candidatures);
+          console.log("candidatures :",this.candidatures);
         },
         (error: any) => {
           console.error('Error fetching candidatures:', error);
@@ -147,4 +206,52 @@ getCandidatureByJob(jobId: number): any {
   return this.candidatures.find(candidature => candidature.offre === jobId);
 }
 
+
+
+
+submitReport() {
+  if (this.reportForm.valid) {
+    const reportData = this.reportForm.value;
+
+    // Get the current candidate and job IDs
+    const candidatId = this.getCandidatId();
+    const jobId = this.getJobId();
+
+    // Submit the report using the service
+    this.utilisateurService.submitReclamation(candidatId, jobId, reportData.candidat)
+      .subscribe(response => {
+        console.log('Report submitted successfully:', response);
+
+        // If there is a response from the admin, update the form control
+        if (response && response.adminResponse) {
+          this.reportForm.patchValue({ admin: response.adminResponse });
+        }
+
+        this.closeModal();
+      }, error => {
+        console.error('Error submitting report:', error);
+      });
+  }
+}
+
+// Method to fetch candidate ID
+getCandidatId() {
+  const user = JSON.parse(localStorage.getItem('user'));
+  return user.id; // Assuming the logged-in user is the candidate
+}
+
+// Method to fetch job ID (example)
+getJobId() {
+  return this.modaleData.id; // Assuming the job ID is available in `modaleData`
+}
+
+getReclamationsByCandidat(candidatId: number) {
+  this.utilisateurService.getReclamationsByCandidat(candidatId)
+    .subscribe(data => {
+      
+      console.log('Reclamations for candidat:', data);
+    }, error => {
+      console.error('Error fetching reclamations:', error);
+    });
+}
 }

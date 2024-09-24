@@ -55,6 +55,8 @@ getInterviews()
 
     // fetches the data
     this._fetchData();
+    
+    
   }
 
   /**
@@ -81,7 +83,7 @@ getInterviews()
   }
 
   onSubmit(): void {
-    console.log("form",this.recruteurForm  )
+    console.log("form",this.recruteurForm.value  )
     if (this.recruteurForm.valid) {
       this.utilisateurService.modifyRecruteur(this.recruteurId, this.recruteurForm.value).subscribe(
         (response) => {
