@@ -25,9 +25,7 @@
             <table class="table align-middle table-nowrap dt-responsive nowrap w-100 table-check" id="order-list">
               <thead>
                 <tr>
-                  <th>
-                    
-                  </th>
+                  
                   <th>Order ID</th>
                   <th>Description</th>
                   <th>Domaine</th>
@@ -43,13 +41,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let offre of offres; let i = index;" id="o_{{offre.id}}">
-                  <td>
-                    <div class="form-check font-size-16">
-                      <input class="form-check-input" type="checkbox" id="transactionCheck{{offre.index}}" value="{{offre.id}}" [(ngModel)]="offre.state">
-                      <label class="form-check-label" for="transactionCheck{{offre.index}}"></label>
-                    </div>
-                  </td>
+                <tr *ngFor="let offre of offres| filter: searchTerm;; let i = index;" id="o_{{offre.id}}">
+                  
                   <td>
                     <a href="javascript: void(0);" class="text-body fw-bold">{{offre.id}}</a>
                   </td>
