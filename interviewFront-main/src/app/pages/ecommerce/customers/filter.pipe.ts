@@ -4,17 +4,16 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'filter'
 })
 export class FilterPipe implements PipeTransform {
-  transform(users:any, searchTerm: string,candidatures : any): any {
-    if (!users || !searchTerm) {
-      return users;
+  transform(jobsData: any[], searchTerm: string): any[] {
+    if (!jobsData || !searchTerm) {
+      return jobsData;
     }
 
     searchTerm = searchTerm.toLowerCase();
 
-    return users.filter(user =>
-      user.username.toLowerCase().includes(searchTerm) ||
-      user.email.toLowerCase().includes(searchTerm) ||
-      user.phone.includes(searchTerm)
+    return jobsData.filter(job =>
+      job.description.toLowerCase().includes(searchTerm) ||
+      job.domaine.toLowerCase().includes(searchTerm)
     );
   }
 }

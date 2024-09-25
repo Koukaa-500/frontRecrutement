@@ -35,7 +35,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let job of jobsData | filter:searchTerm" id="j_{{job.id}}">
+                  <tr *ngFor="let job of jobsData | filter:searchTerm">
                     
                     <td>{{job.domaine}}</td>
                     <td>{{job.description}}</td>
@@ -72,7 +72,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let job of jobsData | filter:searchTerm" id="j_{{ job.id }}">
+                  <tr *ngFor="let job of jobsData | filter:searchTerm">
                     <!-- Show job details only if the job is accepted -->
                     <td *ngIf="job.status === 'ACCEPTED'">{{ job.description }}</td>
                     <td *ngIf="job.status === 'ACCEPTED'">{{ job.domaine }}</td>

@@ -100,7 +100,7 @@ export const MENU: MenuItem[] = [
                 label: 'MENUITEMS.ECOMMERCE.LIST.CUSTOMERS',
                 link: '/ecommerce/customers',
                 parentId: 13,
-                role: ['candidat','recruteur'],
+                role: ['candidat'],
             },
            /* {
                 id: 14,
