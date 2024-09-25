@@ -72,7 +72,7 @@
       <!-- end card -->
     </div>
 
-    <div class="col-xl-8">
+    <!-- <div class="col-xl-8">
 
       <div class="card">
         <div class="card-body">
@@ -108,7 +108,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
   <!-- end row -->
 </div>
@@ -147,19 +147,18 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="password">Mot de Passe</label>
-          <input type="password" formControlName="password" id="password" class="form-control" />
-          <div *ngIf="recruteurForm.get('password')?.invalid && recruteurForm.get('password')?.touched">
+          <label for="motDePasse">Mot de Passe</label>
+          <input type="password" formControlName="motDePasse" id="motDePasse" class="form-control" />
+          <div *ngIf="recruteurForm.get('motDePasse')?.invalid && recruteurForm.get('motDePasse')?.touched">
             Le mot de passe est requis.
           </div>
         </div>
       
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" [disabled]="recruteurForm.invalid">Modifier</button>
+          <button type="submit" class="btn btn-primary" >Modifier</button>
           <button type="button" class="btn btn-secondary" (click)="closeModal()">Fermer</button>
         </div>
       </form>
       
     </div>
   </div>
-  

@@ -11,7 +11,7 @@ private baseUrl = 'http://localhost:8082/reclamations';
 constructor(private http: HttpClient) { }
 // recuperer tous les utilisateurs
 getUtilisateurs(){
-  return this.http.get(this.url);
+  return this.http.get(`${this.url}/candidats`);
 }
 // recuperer un utilisateur par id
 getUtilisateur(id){

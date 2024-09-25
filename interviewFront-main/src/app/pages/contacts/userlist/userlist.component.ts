@@ -37,7 +37,10 @@ export class UserlistComponent implements OnInit {
   users: any[] = [];
   candidatures:any[] = []
   userRole: string;
-
+  countUsers:number
+  offres:any[]=[]
+  offreCount:number
+  candidaturesCount:number
   constructor(private modalService: BsModalService, public service: userListService, private formBuilder: UntypedFormBuilder,
     private utilisateurService:UtilisateurService,private candidatureService:CandidatureService,private offreService:OffreService
   ) {
@@ -61,10 +64,13 @@ export class UserlistComponent implements OnInit {
       } else {
         console.error('User ID not found in localStorage');
       }
-      this.loadCandidatures()
-      this.users=this.candidatures;
-      console.log("users:", this.users);
+      
     }
+    this.loadCandidatures()
+    this.users=this.candidatures;
+    console.log("users:", this.users);
+    this.getAllOffres()
+    
   }
   
   getUsersByRecruter(id: any): void {
@@ -84,12 +90,13 @@ export class UserlistComponent implements OnInit {
         (data: any) => {
           this.candidatures = data;
           console.log(data);
-          
+          this.candidaturesCount = this.candidatures.length
         },
         (error: any) => {
           console.error('Error fetching candidatures:', error);
         }
       );
+      this.loadAllUserToAdmin()
   }
 
 
@@ -133,6 +140,7 @@ loadAllUserToAdmin(){
         console.log('candidatures :',candidatures)
         this.users = [...this.users, ...candidatures];
         console.log('usersss :',this.users)
+        this.countUsers = this.users.length
       },
       (error) => {
         console.error('Erreur lors de la récupération des candidatures', error);
@@ -164,6 +172,20 @@ loadAllUserToAdmin(){
         }
       );
     }
+  }
+
+  getAllOffres() { 
+    this.offreService.getOffres().subscribe(
+      (offres: any[]) => { // Assert the type here
+        
+        this.offres = offres
+        this.offreCount = this.offres.length
+        console.log(this.offres);
+      },
+      error => {
+        console.error('Error fetching offers:', error);
+      }
+    );
   }
 // getRecruteurs(): void {
 //   this.utilisateurService.getAllRecruteurs().subscribe(

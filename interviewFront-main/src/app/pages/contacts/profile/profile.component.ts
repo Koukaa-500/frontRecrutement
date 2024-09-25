@@ -38,7 +38,7 @@ export class ProfileComponent implements OnInit {
       nom: ['', Validators.required],
       prenom: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      motDePasse: ['', Validators.required]
     });
   }
 getInterviews()
@@ -83,12 +83,28 @@ getInterviews()
   }
 
   onSubmit(): void {
-    console.log("form",this.recruteurForm.value  )
+    if(this.utilisateur.role==="admin"){
+      this.updateAdmin();
+    }else if (this.utilisateur.role==="recruteur"){
+      this.updateRecruteur();
+    }else if (this.utilisateur.role==="candidat"){
+      this.updateCandidat();
+    }
+    this.closeModal()
+  }
+
+
+  updateRecruteur(){
     if (this.recruteurForm.valid) {
-      this.utilisateurService.modifyRecruteur(this.recruteurId, this.recruteurForm.value).subscribe(
+      const recruteurData = {
+        ...this.recruteurForm.value, // Toutes les valeurs du formulaire
+        role: 'recruteur'            // Ajout du rôle
+      };
+      this.utilisateurService.modifyRecruteur(this.utilisateur.id, recruteurData).subscribe(
         (response) => {
           console.log('Recruteur mis à jour avec succès', response);
-          // Logique supplémentaire (ex. redirection ou message de succès)
+          this.getUserbyEmail(this.email);
+        
         },
         (error) => {
           console.error('Erreur lors de la mise à jour du recruteur', error);
@@ -98,5 +114,48 @@ getInterviews()
       console.log('Formulaire invalide');
     }
   }
+
+
+  updateAdmin(){
+    if (this.recruteurForm.valid) {
+      const recruteurData = {
+        ...this.recruteurForm.value, // Toutes les valeurs du formulaire
+        role: 'admin'            // Ajout du rôle
+      };
+      this.utilisateurService.modifyAdmin(this.utilisateur.id, recruteurData).subscribe(
+        (response) => {
+          console.log('Recruteur mis à jour avec succès', response);
+          this.getUserbyEmail(this.email);
+        
+        },
+        (error) => {
+          console.error('Erreur lors de la mise à jour du recruteur', error);
+        }
+      );
+    } else {
+      console.log('Formulaire invalide');
+    }
+  }
+
+updateCandidat(){
+  if (this.recruteurForm.valid) {
+    const recruteurData = {
+      ...this.recruteurForm.value, // Toutes les valeurs du formulaire
+      role: 'candidat'            // Ajout du rôle
+    };
+    this.utilisateurService.modifyCandidat(this.utilisateur.id, recruteurData).subscribe(
+      (response) => {
+        console.log('Recruteur mis à jour avec succès', response);
+        this.getUserbyEmail(this.email);
+      
+      },
+      (error) => {
+        console.error('Erreur lors de la mise à jour du recruteur', error);
+      }
+    );
+  } else {
+    console.log('Formulaire invalide');
+  }
+}
   
 }

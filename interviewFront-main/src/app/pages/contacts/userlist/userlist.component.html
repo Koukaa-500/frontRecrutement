@@ -56,15 +56,13 @@
           <div class="row mb-2">
             <div class="col-sm-4">
               <div class="search-box me-2 mb-2 d-inline-block">
-                <div class="position-relative">
-                  <input type="text" class="form-control" autocomplete="off" id="searchTableList" placeholder="Search..." >
-                  <i class="bx bx-search-alt search-icon"></i>
-                </div>
+                <h1>Users</h1>
               </div>
             </div>
           </div>
-
+          
           <div class="table-responsive mb-0">
+            
             <table class="table align-middle table-nowrap dt-responsive nowrap w-100 table-check" id="user-list">
               <thead>
                 <tr>
@@ -86,6 +84,47 @@
                   </td>
                 </tr>
               </tbody>
+            </table>
+          </div>  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid" *ngIf="userRole==='admin'">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box me-2 mb-2 d-inline-block">
+                <h1>Statistics</h1>
+              </div>
+            </div>
+          </div>
+          
+          <div class="table-responsive mb-0">
+            
+            <table class="table align-middle table-nowrap dt-responsive nowrap w-100 table-check" id="user-list">
+              <thead>
+                <tr>
+                  
+                  <th>Number of Offres</th>
+                  <th>Number of Users</th>
+                  <th>Number of Candidatures</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                   <td>{{ offreCount }}</td> <!-- You should ensure that candidatureCount reflects actual data -->
+                   <td>{{ countUsers }}</td>
+                   <td>{{candidaturesCount}}</td>
+                  </tr>
+                
+             </tbody>
+             
             </table>
           </div>  
         </div>
